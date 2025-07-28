@@ -1,6 +1,5 @@
 # Author: Margaret Seymour
 # GitHub username: seydev27
-# Date: 2025-07-28
 # Description:
 # Flask app for Troll Riddle Race — a web-based logic and riddle puzzle game.
 # Handles user input via a simple interface and returns game progression step by step.

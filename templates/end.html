@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Over</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #111; color: white; text-align: center; padding-top: 100px; }
+    h1 { font-size: 48px; margin-bottom: 30px; }
+    a {
+      text-decoration: none;
+      padding: 12px 24px;
+      background-color: #444;
+      color: #fff;
+      font-size: 20px;
+      border-radius: 6px;
+    }
+    a:hover { background-color: #666; }
+  </style>
+</head>
+<body>
+  <h1>{{ result }}</h1>
+  <a href="{{ url_for('restart') }}">🔁 Play Again</a>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!-- templates/game.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Troll Riddle Race</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fffef5;
+      color: #333;
+      text-align: center;
+      padding: 40px;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    pre {
+      font-family: monospace;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      background-color: #f4f4f4;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .riddle {
+      font-style: italic;
+      font-size: 1.1rem;
+      margin: 20px 0;
+    }
+    input[type="text"] {
+      padding: 8px;
+      font-size: 1rem;
+      width: 250px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #3d6cb9;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2d54a3;
+    }
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #a73333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Troll Riddle Race</h2>
+
+  <pre>{{ board }}</pre>
+
+  <div class="riddle">
+    {{ riddle }}
+  </div>
+
+  <form action="/answer" method="post">
+    <input type="text" name="user_answer" placeholder="Your answer" required>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+
+  {% if message %}
+    <div class="message">{{ message }}</div>
+  {% endif %}
+
+</body>
+</html>

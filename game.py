@@ -1,64 +1,71 @@
 # Author: Margaret Seymour
 # GitHub username: seydev27
-# Coordinates the Troll Riddle Race game logic.
-# Imports and integrates player movement, troll behavior, board display, and riddle challenges.
+# Main game logic for Troll Riddle Race (web-adapted version).
+# Coordinates board creation, player and troll movement, riddle logic, and win/loss conditions.
 
 from board import create_board, display_board, move_entity, get_random_empty_position, distance
 from riddles import ask_riddle, final_riddle_challenge
-from player.player import get_player_move
-from troll.troll import get_troll_move
+from player import get_player_move
+from troll import troll_decide_move
 
 BOARD_SIZE = 7
 
+def initialize_positions():
+    """
+    Randomly assigns non-overlapping positions for player, troll, and treasure.
+    Returns tuple of positions.
+    """
+    player = get_random_empty_position(None)
+    troll = get_random_empty_position(None)
+    treasure = get_random_empty_position(None)
+    # Ensure all three are unique
+    while troll == player or treasure == player or treasure == troll:
+        troll = get_random_empty_position(None)
+        treasure = get_random_empty_position(None)
+    return player, troll, treasure
+
 def game_loop():
     """
-    Main gameplay loop. Alternates turns between player and troll based on riddle answers.
+    Main loop for Troll Riddle Race.
+    Alternates between player and troll movement based on riddle results.
     """
+    player_pos, troll_pos, treasure_pos = initialize_positions()
     board = create_board(BOARD_SIZE)
 
-    # Initialize random positions
-    player_pos = get_random_empty_position(board)
-    troll_pos = get_random_empty_position(board)
-    treasure_pos = get_random_empty_position(board)
-
-    # Ensure no overlaps
-    while player_pos in [troll_pos, treasure_pos] or troll_pos == treasure_pos:
-        player_pos = get_random_empty_position(board)
-        troll_pos = get_random_empty_position(board)
-        treasure_pos = get_random_empty_position(board)
-
-    print("🎮 Welcome to Troll Riddle Race!")
-    print("Solve riddles to move. If you fail, the troll moves instead!")
-    print("Reach the treasure before the troll catches you!")
+    print("\n🎮 Welcome to Troll Riddle Race!")
+    print("🧠 Solve riddles to move. ❌ Fail, and the troll moves instead!")
+    print("🏆 Reach the treasure before the troll catches you!\n")
 
     while True:
         display_board(board, player_pos, troll_pos, treasure_pos)
 
         if player_pos == treasure_pos:
-            print("💰 You've reached the treasure!")
+            print("\n💰 You've reached the treasure!")
             if final_riddle_challenge():
-                print("🏆 You WIN!")
+                print("🏆 You win!")
             else:
-                print("💀 You couldn't solve the final challenge. The troll wins!")
+                print("😓 You failed the final challenge. The troll claims the treasure.")
             break
 
         if player_pos == troll_pos:
-            print("👹 The troll caught you!")
-            print("💀 Game Over.")
+            print("\n💀 The troll caught you! Game over.")
             break
 
-        # Ask a riddle
+        # Present riddle
         if ask_riddle():
+            print("✅ Correct! Choose a direction: (N, S, E, W)")
             direction = get_player_move()
             player_pos = move_entity(player_pos, direction, BOARD_SIZE)
         else:
-            troll_target = treasure_pos if distance(troll_pos, treasure_pos) < distance(troll_pos, player_pos) else player_pos
-            troll_pos = get_troll_move(troll_pos, troll_target, BOARD_SIZE)
-            # Hint to the player
-            if troll_target == player_pos:
-                print("👣 You hear heavy footsteps... they might be coming for you!")
-            else:
-                print("💬 The troll bellows in the distance — maybe it's after the treasure?")
+            print("👹 Wrong! The troll gets a turn.")
+            troll_direction = troll_decide_move(troll_pos, player_pos, treasure_pos)
+            troll_pos = move_entity(troll_pos, troll_direction, BOARD_SIZE)
+
+        # Proximity warning
+        if distance(player_pos, troll_pos) <= 2:
+            print("⚠️ You hear heavy footsteps nearby...")
+        elif distance(troll_pos, treasure_pos) <= 2:
+            print("⚠️ The troll bellows near the treasure...")
 
 if __name__ == "__main__":
     game_loop()

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Your Move</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; background: #111; color: #fff; }
+    h1 { margin-top: 40px; }
+    .directions button {
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 18px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .directions button:hover { background-color: #666; }
+  </style>
+</head>
+<body>
+  <h1>🧭 Choose a direction to move:</h1>
+  <form method="POST">
+    <div class="directions">
+      <button name="direction" value="N">⬆️ North</button>
+      <button name="direction" value="S">⬇️ South</button>
+      <button name="direction" value="E">➡️ East</button>
+      <button name="direction" value="W">⬅️ West</button>
+    </div>
+  </form>
+</body>
+</html>

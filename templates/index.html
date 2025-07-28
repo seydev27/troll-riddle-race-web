@@ -1,0 +1,47 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Troll Riddle Race</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #3a3a3a;
+    }
+    p {
+      font-size: 1.2rem;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #2d7b2d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #256325;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧌 Troll Riddle Race</h1>
+  <p>Solve riddles to move. Reach the treasure before the troll does!</p>
+
+  <form action="/start" method="post">
+    <button type="submit">Start Game</button>
+  </form>
+
+</body>
+</html>
